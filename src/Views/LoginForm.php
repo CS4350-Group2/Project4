@@ -36,7 +36,7 @@
 
         </form> 
 
-        <a href="/Register" id="registerlink">New User? Register Here</a>
+        <a href="/register" id="registerlink">New User? Register Here</a>
 
 </body>
 
