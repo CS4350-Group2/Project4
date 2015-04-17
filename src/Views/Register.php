@@ -39,17 +39,9 @@
                             200: function()
                             {
                                 alert('logged in succesfully');
-                                location.href = "/profile"
+                                location.href = "/Welcome"
                             },
-                            401: function() 
-                            {
-                                alert('not authorized');
-                                
-                            }
-                            404: function() 
-                            {
-      							alert( "page not found" );
-    						}
+                            
 
                         };       
                                         
