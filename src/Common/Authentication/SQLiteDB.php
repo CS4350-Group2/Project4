@@ -51,4 +51,10 @@ class SQLiteDB implements IAuthentication {
 
         return false;
     }
+
+    public function register($user, $pass)
+    {
+        $this->responsecode = 401;
+        $query ="insert into users(username,password)values(".$user.",".$pass.")";
+    }
 }
