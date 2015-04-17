@@ -32,7 +32,7 @@
             .done(function( data ) {
                 console.log( "Data Loaded: " + data );
                 // Handle login success
-                location.href = "/Welcome";
+                location.href = "/welcome";
             });
 
         // responseData.fail(function() {

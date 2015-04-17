@@ -61,6 +61,12 @@ $app->post('/api', function() use($app){
     }
 
 });
+// register new user
+$app->post('/api/register', function()
+{
+    $register = new \Common\Authentication\SQLiteDB();
+});
+
 
 $app->run();
 
