@@ -33,9 +33,10 @@
             <input type="text" id="password" class="form-control" placeholder="password">
           </div>
           <button type="submit" class="btn btn-default" onclick="formSubmit()">Submit</button>
+
         </form> 
 
-</form>
+        <a href="/register" id="registerlink">New User? Register Here</a>
 
 </body>
 
