@@ -33,6 +33,7 @@
             <input type="text" id="password" class="form-control" placeholder="password">
           </div>
           <button type="submit" class="btn btn-default" onclick="formSubmit()">Submit</button>
+          <a href="/Register" id="registerlink">New User? Register Here</a>
         </form> 
 
 </form>
