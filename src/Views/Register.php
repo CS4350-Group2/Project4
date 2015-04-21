@@ -15,49 +15,30 @@
 						<input id="name" type="text"/><br /><br />
                 	<label>Password: </label>
 						<input id="password" type="password"/><br /><br />
-                	<input id="submit" type="button" onclick="registerSubmission" value="Submit" /><br />
+                	<input id="submit" type="button" onclick="register()" value="Submit" /><br />
             	</p>
             </div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
-		function registerSubmission() {
-        $.post('/register/', $("#registerForm").serialize()).done(function (data) {
-        
-          alert(data);
-        });
-				// AJAX POST submission
-					$.ajax({
-						type: "POST",
-						url: "/",
-						data: data,
-						cache: false,
-                        dataType:'JSON',
-                        statusCode: 
-                        {
-                            200: function()
-                            {
-                                alert('logged in succesfully');
-                                location.href = "/profile"
-                            },
-                            401: function() 
-                            {
-                                alert('not authorized');
-                                
-                            }
-                            404: function() 
-                            {
-      							alert( "page not found" );
-    						}
 
-                        };       
-                                        
-            
+    $(document).ready(function() {
+    });
 
-				}
-			});
-		});
+    function register() {
+        var jsonRequestBody = $("registerForm").serialize();
+        var responseData = $.post("/api", jsonRequestBody)
+            .done(function( data ) {
+                console.log( "Data Loaded: " + data );
+                // Handle login success
+                location.href = "/welcome";
+            });
+
+        // responseData.fail(function() {
+        //     // Handle login failure
+        //     location.href = "/register";
+        // });
 </script>
 
     </body>
