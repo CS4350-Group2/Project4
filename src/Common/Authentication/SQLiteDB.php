@@ -57,7 +57,7 @@ class SQLiteDB implements IAuthentication {
     {
         $this->responsecode = 401;
 
-        $setregdate = 
+        $setregdate =
 
         $query ="insert into users(username,password,firstname,lastname,email,regdate)values(".$user.",".$pass.")";
     }
