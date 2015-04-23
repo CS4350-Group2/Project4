@@ -30,7 +30,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail2">Password: </label>
-            <input type="text" id="password" class="form-control" placeholder="password">
+            <input type="password" id="password" class="form-control" placeholder="password">
           </div>
           <button type="submit" class="btn btn-default" onclick="formSubmit()">Submit</button>
 
@@ -42,51 +42,76 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-
-<script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script type="text/javascript">
     $(document).ready(function() {
+        $("#submit").click(function() {
+
+            $.ajax({
+                type:"POST",
+                url:"/api",
+                data:$("loginForm").serialize(),
+                cache: false,
+                dataType: 'JSON',
+                statusCode:
+                {
+                    200: function()
+                    {
+                        alert('success');
+                        location.href= "/welcome"
+                    },
+                    401: function()
+                    {
+                        alert('unauthorized user');
+                        location.href="/register"
+                    }
+                    //404: function()
+                    //{
+                    //  alert( "page not found" );
+                    //}
+                }
+            });
+        })
     });
 
-    function formSubmit() {
-        var jsonRequestBody = $("loginForm").serialize();
-        var responseData = $.post("/api", jsonRequestBody)
-            .done(function( data ) {
-                console.log( "Data Loaded: " + data );
-                // Handle login success
-                location.href = "/welcome";
-            });
-
-        responseData.fail(function() {
-            // Handle login failure
-            location.href = "/register";
-        });
-//        $.ajax({
-//            type:"POST",
-//            url:"/api",
-//            data:$("loginForm").serialize(),
-//            cache: false,
-//            dataType: 'JSON',
-//            statusCode:
-//            {
-//                200: function()
-//                {
-//                    alert('success');
-//                    location.href= "/welcome"
-//                },
-//                401: function()
-//                {
-//                    alert('unauthorized user');
-//                    location.href="/register"
-//                }
-//                //404: function()
-//                //{
-//                  //  alert( "page not found" );
-//                //}
-//            }
-//        });
-    }
+    //    function formSubmit() {
+    ////        var jsonRequestBody = $("loginForm").serialize();
+    ////        var responseData = $.post("/api", jsonRequestBody)
+    ////            .done(function( data ) {
+    ////                console.log( "Data Loaded: " + data );
+    ////                // Handle login success
+    ////                location.href = "/welcome";
+    ////            });
+    ////
+    ////        responseData.fail(function() {
+    ////            // Handle login failure
+    ////            location.href = "/register";
+    ////        });
+    //        $.ajax({
+    //            type:"POST",
+    //            url:"/api",
+    //            data:$("loginForm").serialize(),
+    //            cache: false,
+    //            dataType: 'JSON',
+    //            statusCode:
+    //            {
+    //                200: function()
+    //                {
+    //                    alert('success');
+    //                    location.href= "/welcome"
+    //                },
+    //                401: function()
+    //                {
+    //                    alert('unauthorized user');
+    //                    location.href="/register"
+    //                }
+    //                //404: function()
+    //                //{
+    //                  //  alert( "page not found" );
+    //                //}
+    //            }
+    //        });
+    //    }
 </script>
 
 </html>
