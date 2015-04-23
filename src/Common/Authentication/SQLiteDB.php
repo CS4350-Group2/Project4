@@ -8,7 +8,6 @@ use PDOException;
 
 class SQLiteDB implements IAuthentication {
     private $dbh;
-    private $setregdate;
 
     public function __construct()
     {
@@ -53,12 +52,13 @@ class SQLiteDB implements IAuthentication {
         return false;
     }
 
-    public function register($user)
+    public function register($user,$pass,$fname,$lname,$email)
     {
         $this->responsecode = 401;
 
-        $setregdate =
+        $setRegDate = date("m.d.y");
 
-        $query ="insert into users(username,password,firstname,lastname,email,regdate)values(".$user.",".$pass.")";
+        $query ="insert into users(username,password,firstname,lastname,email,regdate)values(".$user.",".$pass.",".$fname.
+            ",".$lname.",".$email.",".$setRegDate.")";
     }
 }
