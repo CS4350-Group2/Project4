@@ -1,11 +1,21 @@
 <?php
 
-namespace Common\Authentication;
-use PDO;
 
-class SQLiteRegister
+namespace Common\Authentication;
+
+
+
+class Registration
 {
-     private $dbh;
+
+    protected $username;
+    protected $password;
+    protected $db;
+    protected $users;
+    protected $twitter;
+    protected $firstName;
+    protected $lastName;
+    protected $email;
 
     public function __construct()
     {
@@ -21,34 +31,44 @@ class SQLiteRegister
             echo 'ERROR: ' .$e->getMessage();
         }
     }
-    
-    
-    public function registerNewUser()
+
+    public function addUser($username = '', $password = '', $twitter='', $email, $firstName, $lastName)
     {
-        $data=$this->conn->query('SELECT username FROM Users WHERE userName= '.$this->conn->quote($this->username));
-        
-        $result=$data->fetchAll();
-        
-        if(count($result)!==0)
-        {
-            //false
-            return 0;
-        }
-        $this->conn->query('INSERT INTO Test (username, password) VALUES ('
-                .$this->conn->quote($this->username).','
-                    .$this->conn->quote($this->password).')');
-        
-        $data=$this->conn->query('SELECT username FROM Test WHERE username= '.$this->conn->quote($this->username));
 
-        $result=$data->fetchAll();
-        
-        if (count($result)!==1)
-        {
-            
-            return 0;
+        if ($username !== '') {
+            $this->username = $username;
         }
-        return 1;
-        
+
+        if ($password !== '') {
+            $this->password = $password;
+        }
+        if ($twitter !== '') {
+            $this->twitter = $twitter;
+        }
+        if ($firstName !== '') {
+            $this->firstName = $firstName;
+        }
+        if ($lastName !== '') {
+            $this->lastName = $lastName;
+        }
+        if ($email !== '') {
+            $this->email = $email;
+        }
+   
+        foreach($this->users as $u){
+            if($u['username']===$username){
+                return false;
+
+            }
+        }
+        $regDate = time();
+
+        $sql = "INSERT INTO users (username, password, twitter, fname, lname, regdate, email) VALUES ('".$this->username."', '".$this->password."', '".$this->twitter."', '".$this->firstName."', '".$this->lastName."', '$regDate', '".$this->email."');";
+
+        $result = $this->db->insert($sql);
+
+        return $result;
+
+
     }
-
 }

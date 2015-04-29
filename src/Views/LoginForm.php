@@ -14,14 +14,7 @@
     </head>
 
     <body>
-    
-         <!-- <div align="center" id="loginForm">
-            <p>
-                Username: <input type="text" name="username" size="15" /><br />
-                Password: <input type="password" name="password" size="15" /><br />
-                <p><input type="submit" value="Login" onclick="formSubmit()"/></p>
-           </p>
-        </div>  --> 
+
         <!-- bootstrapped form -->
          <form class="form-inline" id="loginForm">
           <div class="form-group">
@@ -43,8 +36,8 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-    <script type="text/javascript">
-    <script>
+  
+<script>
 
     $(document).ready(function() {
     });
