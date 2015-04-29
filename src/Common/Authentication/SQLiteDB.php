@@ -5,6 +5,12 @@ namespace Common\Authentication;
 use PDO;
 use PDOException;
 
+        $this->username= $this->userDetails['username'];
+        $this->twitter= $this->userDetails['twitter'];
+        $this->email= $this->userDetails['email'];
+        $this->firstName= $this->userDetails['fname'];
+        $this->lastName= $this->userDetails['lname'];
+        $this->regDate = $this->userDetails['regdate'];
 
 class SQLiteDB implements IAuthentication {
     private $dbh;
@@ -52,13 +58,35 @@ class SQLiteDB implements IAuthentication {
         return false;
     }
 
-    public function register($name,$password,$firstname,$lastname,$email)
+    public function register($username = '', $password = '', $twitter='', $email, $firstName, $lastName)
     {
-        $this->responsecode = 401;
-
-        $setRegDate = date("m.d.y");
-
-        $query ="insert into Users(username,password,firstname,lastname,email,regdate)values(".$user.",".$password.",".$firstname.
-            ",".$lastname.",".$email.",".$setRegDate.")";
+        if ($username !== '') {
+            $this->username = $username;
+        }
+        if ($password !== '') {
+            $this->password = $password;
+        }
+        if ($twitter !== '') {
+            $this->twitter = $twitter;
+        }
+        if ($firstName !== '') {
+            $this->firstName = $firstName;
+        }
+        if ($lastName !== '') {
+            $this->lastName = $lastName;
+        }
+        if ($email !== '') {
+            $this->email = $email;
+        }
+        //Check if user already exists
+        foreach($this->users as $u){
+            if($u['username']===$username){
+                return false;
+            }
+        }
+        $regDate = time();
+        $sql = "INSERT INTO users (username, password, twitter, fname, lname, regdate, email) VALUES ('".$this->username."', '".$this->password."', '".$this->twitter."', '".$this->firstName."', '".$this->lastName."', '$regDate', '".$this->email."');";
+        $result = $this->db->insert($sql);
+        return $result;
     }
 }
