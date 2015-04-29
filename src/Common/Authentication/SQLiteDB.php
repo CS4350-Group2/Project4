@@ -52,13 +52,13 @@ class SQLiteDB implements IAuthentication {
         return false;
     }
 
-    public function register($user,$pass,$fname,$lname,$email)
+    public function register($name,$password,$firstname,$lastname,$email)
     {
         $this->responsecode = 401;
 
         $setRegDate = date("m.d.y");
 
-        $query ="insert into users(username,password,firstname,lastname,email,regdate)values(".$user.",".$pass.",".$fname.
-            ",".$lname.",".$email.",".$setRegDate.")";
+        $query ="insert into Users(username,password,firstname,lastname,email,regdate)values(".$user.",".$password.",".$firstname.
+            ",".$lastname.",".$email.",".$setRegDate.")";
     }
 }
