@@ -14,14 +14,7 @@
     </head>
 
     <body>
-    
-         <!-- <div align="center" id="loginForm">
-            <p>
-                Username: <input type="text" name="username" size="15" /><br />
-                Password: <input type="password" name="password" size="15" /><br />
-                <p><input type="submit" value="Login" onclick="formSubmit()"/></p>
-           </p>
-        </div>  --> 
+
         <!-- bootstrapped form -->
          <form class="form-inline" id="loginForm">
           <div class="form-group">
@@ -43,75 +36,26 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $("#submit").click(function() {
+  
+<script>
 
-            $.ajax({
-                type:"POST",
-                url:"/api",
-                data:$("loginForm").serialize(),
-                cache: false,
-                dataType: 'JSON',
-                statusCode:
-                {
-                    200: function()
-                    {
-                        alert('success');
-                        location.href= "/welcome"
-                    },
-                    401: function()
-                    {
-                        alert('unauthorized user');
-                        location.href="/register"
-                    }
-                    //404: function()
-                    //{
-                    //  alert( "page not found" );
-                    //}
-                }
-            });
-        })
+    $(document).ready(function() {
     });
 
-    //    function formSubmit() {
-    ////        var jsonRequestBody = $("loginForm").serialize();
-    ////        var responseData = $.post("/api", jsonRequestBody)
-    ////            .done(function( data ) {
-    ////                console.log( "Data Loaded: " + data );
-    ////                // Handle login success
-    ////                location.href = "/welcome";
-    ////            });
-    ////
-    ////        responseData.fail(function() {
-    ////            // Handle login failure
-    ////            location.href = "/register";
-    ////        });
-    //        $.ajax({
-    //            type:"POST",
-    //            url:"/api",
-    //            data:$("loginForm").serialize(),
-    //            cache: false,
-    //            dataType: 'JSON',
-    //            statusCode:
-    //            {
-    //                200: function()
-    //                {
-    //                    alert('success');
-    //                    location.href= "/welcome"
-    //                },
-    //                401: function()
-    //                {
-    //                    alert('unauthorized user');
-    //                    location.href="/register"
-    //                }
-    //                //404: function()
-    //                //{
-    //                  //  alert( "page not found" );
-    //                //}
-    //            }
-    //        });
-    //    }
+    function formSubmit() {
+        var jsonRequestBody = $("loginForm").serialize();
+        var responseData = $.post("/api", jsonRequestBody)
+            .done(function( data ) {
+                console.log( "Data Loaded: " + data );
+                // Handle login success
+                location.href = "/welcome";
+            });
+
+        responseData.fail(function() {
+            // Handle login failure
+            location.href = "/register";
+        });
+
 </script>
 
 </html>

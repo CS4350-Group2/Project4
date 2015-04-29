@@ -33,6 +33,18 @@ class SQLiteDB implements IAuthentication {
      *
      * @access public
      */
+
+    public function getUsers() {
+        return $this->users;
+    }
+    public function insert($sql){
+        return $this->sqliteDb->exec($sql);
+    }
+    public function query($sql){
+        $ret = $this->sqliteDb->query($sql);
+        $result = $ret->fetchArray(SQLITE3_ASSOC);
+        return $result;
+    }
     public function authenticate($username, $password)
     {
 
@@ -52,13 +64,5 @@ class SQLiteDB implements IAuthentication {
         return false;
     }
 
-    public function register($user,$pass,$fname,$lname,$email)
-    {
-        $this->responsecode = 401;
-
-        $setRegDate = date("m.d.y");
-
-        $query ="insert into users(username,password,firstname,lastname,email,regdate)values(".$user.",".$pass.",".$fname.
-            ",".$lname.",".$email.",".$setRegDate.")";
-    }
+    
 }
