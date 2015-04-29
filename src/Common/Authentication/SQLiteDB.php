@@ -5,12 +5,6 @@ namespace Common\Authentication;
 use PDO;
 use PDOException;
 
-        username= $this->userDetails['username'];
-        twitter= $this->userDetails['twitter'];
-        email= $this->userDetails['email'];
-        firstName= $this->userDetails['fname'];
-        lastName= $this->userDetails['lname'];
-        regDate = $this->userDetails['regdate'];
 
 class SQLiteDB implements IAuthentication {
     private $dbh;
@@ -39,6 +33,18 @@ class SQLiteDB implements IAuthentication {
      *
      * @access public
      */
+
+    public function getUsers() {
+        return $this->users;
+    }
+    public function insert($sql){
+        return $this->sqliteDb->exec($sql);
+    }
+    public function query($sql){
+        $ret = $this->sqliteDb->query($sql);
+        $result = $ret->fetchArray(SQLITE3_ASSOC);
+        return $result;
+    }
     public function authenticate($username, $password)
     {
 
@@ -58,39 +64,5 @@ class SQLiteDB implements IAuthentication {
         return false;
     }
 
-    public function register($username = '', $password = '', $twitter='', $email, $firstName, $lastName)
-    {
-
-        $db = new PDO("sqlite:../Data/Project3DB");
-         
-
-        if ($username !== '') {
-            $this->username = $username;
-        }
-        if ($password !== '') {
-            $this->password = $password;
-        }
-        if ($twitter !== '') {
-            $this->twitter = $twitter;
-        }
-        if ($firstName !== '') {
-            $this->firstName = $firstName;
-        }
-        if ($lastName !== '') {
-            $this->lastName = $lastName;
-        }
-        if ($email !== '') {
-            $this->email = $email;
-        }
-        //Check if user already exists
-        foreach($this->users as $u){
-            if($u['username']===$username){
-                return false;
-            }
-        }
-        $regDate = time();
-        $sql = "INSERT INTO Users (username, password, twitter, fname, lname, regdate, email) VALUES ('".$this->username."', '".$this->password."', '".$this->twitter."', '".$this->firstName."', '".$this->lastName."', '$regDate', '".$this->email."');";
-        $result = $this->db->insert($sql);
-        return $result;
-    }
+    
 }
