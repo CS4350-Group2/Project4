@@ -7,15 +7,15 @@ use PDOException;
 
 
 class SQLiteDB implements IAuthentication {
-    private $dbh;
+    //private $dbh;
 
     public function __construct()
     {
         try
         {
-            $this->dbh = new PDO('sqlite:../Data/Project3DB');
+            $this->conn = new PDO('sqlite:../../Data/Project3DB');
 
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         }
         catch(PDOException $e)
@@ -34,7 +34,7 @@ class SQLiteDB implements IAuthentication {
      * @access public
      */
 
-    public function getUsers() {
+    /*public function getUsers() {
         return $this->users;
     }
     public function insert($sql){
@@ -44,17 +44,18 @@ class SQLiteDB implements IAuthentication {
         $ret = $this->sqliteDb->query($sql);
         $result = $ret->fetchArray(SQLITE3_ASSOC);
         return $result;
-    }
+    }*/
+
     public function authenticate($username, $password)
     {
 
-            $stmt = $this->dbh->query('SELECT username FROM Users WHERE username = '.$this->dbh->quote($username).
-                    ' AND password = '.$this->dbh->quote($password));
+        $stmt = $this->conn->query('SELECT username FROM Users WHERE username = '.$this->conn->quote($username).
+                    ' AND password = '.$this->conn->quote($password));
             //$stmt->execute();
 
             $stmtReturn = $stmt->fetchAll();
             echo $stmtReturn;
-            if(count($stmtReturn) < 0)
+            if(count($stmtReturn) > 0)
             {
                 var_dump($stmtReturn);
                 return true;
@@ -62,6 +63,25 @@ class SQLiteDB implements IAuthentication {
 
 
         return false;
+    }
+
+    public function getUserProfile($username)
+    {
+        $data = $this->conn->query('SELECT username, firstname, lastname, email, regdate, twitter
+                                    FROM Users
+                                    WHERE username ='.$this->conn->quote($username));
+
+        foreach($data->fetchAll() as $i)
+        {
+            $profile = array('username' => $i[0],
+                             'firstname'=> $i[1],
+                             'lastname' => $i[2],
+                             'email' => $i[3],
+                             'regdate' => $i[4],
+                             'twitter' => $i[5]);
+        }
+
+        return $profile;
     }
 
     
