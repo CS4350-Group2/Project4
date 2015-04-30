@@ -41,6 +41,8 @@ $app->post('/api', function() use($app){
 
     $username = $app->request()->params('username');
     $password = $app->request()->params('password');
+    echo $username;
+    echo $password;
 
     $loginUser = new \Common\Authentication\SQLiteDB();
 
@@ -57,7 +59,11 @@ $app->post('/api', function() use($app){
         $app->response()->setStatus(200);
         $app->response()->getStatus();
 
-        return json_encode($app->response()->header('Welcome to your account : localhost:8080/welcome'));
+        $userProfile = $loginUser->getUserProfile($username);
+        $userProfile = json_encode($userProfile);
+
+        echo $userProfile;
+        //return json_encode($app->response()->header('Welcome to your account : localhost:8080/welcome'));
     }
 
 });

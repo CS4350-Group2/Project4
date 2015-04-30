@@ -21,7 +21,7 @@ class Registration
     {
         try
         {
-            $this->dbh = new PDO('sqlite:../Data/Project3DB');
+            $this->dbh = new PDO('sqlite:../../Data/Project3DB');
 
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -63,7 +63,7 @@ class Registration
         }
         $regDate = time();
 
-        $sql = "INSERT INTO users (username, password, twitter, fname, lname, regdate, email) VALUES ('".$this->username."', '".$this->password."', '".$this->twitter."', '".$this->firstName."', '".$this->lastName."', '$regDate', '".$this->email."');";
+        $sql = "INSERT INTO Users (username, password, twitter, fname, lname, regdate, email) VALUES ('".$this->username."', '".$this->password."', '".$this->twitter."', '".$this->firstName."', '".$this->lastName."', '$regDate', '".$this->email."');";
 
         $result = $this->db->insert($sql);
 
